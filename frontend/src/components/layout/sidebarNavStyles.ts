@@ -4,13 +4,17 @@ export const styles = {
   container: (theme: Theme) => ({
     width: 248,
     minWidth: 248,
+    flexShrink: 0,
     height: '100vh',
     position: 'sticky',
     top: 0,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    padding: theme.spacing(2),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    paddingLeft: 0,
+    paddingRight: 0,
     backgroundColor: theme.palette.background.paper,
     borderRight: `1px solid ${theme.palette.grey[200]}`,
   }),
@@ -19,6 +23,8 @@ export const styles = {
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
   }),
 
   brandRow: (theme: Theme) => ({
@@ -26,6 +32,13 @@ export const styles = {
     alignItems: 'center',
     gap: theme.spacing(1.5),
     padding: theme.spacing(1, 1),
+    textDecoration: 'none',
+    color: 'inherit',
+    cursor: 'pointer',
+    borderRadius: 2,
+    '&:hover': {
+      backgroundColor: theme.palette.grey[100],
+    },
   }),
 
   brandIconBox: (theme: Theme) => ({
@@ -73,12 +86,25 @@ export const styles = {
     },
   }),
 
-  navIcon: (_theme: Theme) => ({
+  navButtonDisabled: (theme: Theme) => ({
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: theme.spacing(1.5),
+    borderRadius: 3,
+    padding: theme.spacing(1.25, 1.5),
+    color: theme.palette.text.disabled,
+    cursor: 'default',
+    userSelect: 'none',
+  }),
+
+  navIcon: () => ({
     fontSize: 20,
     flexShrink: 0,
   }),
 
-  navLabel: (_theme: Theme) => ({
+  navLabel: () => ({
     fontWeight: 600,
   }),
 
@@ -86,6 +112,8 @@ export const styles = {
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(1.5),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
   }),
 
   divider: (theme: Theme) => ({
@@ -93,17 +121,30 @@ export const styles = {
   }),
 
   profileRow: (theme: Theme) => ({
+    width: '100%',
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
-    gap: theme.spacing(1.25),
-    padding: theme.spacing(1, 1),
+    justifyContent: 'center',
+    gap: theme.spacing(0.75),
+    padding: theme.spacing(1.25, 0),
+    borderRadius: 3,
+    border: '2px solid transparent',
+    transition: 'background-color 0.2s ease, border-color 0.2s ease',
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main + '14',
+      borderColor: theme.palette.primary.main + '60',
+    },
   }),
 
-  profileMeta: (_theme: Theme) => ({
+  profileMeta: () => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     minWidth: 0,
   }),
 
-  profileName: (_theme: Theme) => ({
+  profileName: () => ({
     fontWeight: 600,
     lineHeight: 1.2,
   }),

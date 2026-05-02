@@ -75,6 +75,8 @@ model Collection {
   books               CollectionBook[]
   createdAt           DateTime          @default(now())
   updatedAt           DateTime          @updatedAt
+  
+  @@unique([userId, name])
 }
 
 

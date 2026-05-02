@@ -1,18 +1,24 @@
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import ButtonBase from '@mui/material/ButtonBase';
+import dogImage from '../../assets/dog_icon.jpeg';
 import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { primaryNavItems, secondaryNavItems } from './navItems';
 import { styles } from './sidebarNavStyles';
+import DogProfileDialog from './DogProfileDialog';
 
+// Main sidebar navigation for entire app used in appshell which gets used in all major components
 export default function SidebarNav() {
+  const [dogDialogOpen, setDogDialogOpen] = useState(false);
+
   return (
     <Box sx={styles.container}>
       <Box sx={styles.topSection}>
-        <Box sx={styles.brandRow}>
+        <Box component={Link} to="/library" sx={styles.brandRow}>
           <Box sx={styles.brandIconBox}>
             <AutoStoriesRoundedIcon />
           </Box>
@@ -24,6 +30,17 @@ export default function SidebarNav() {
         <Box sx={styles.navList}>
           {primaryNavItems.map((item) => {
             const Icon = item.icon;
+
+            if (item.disabled) {
+              return (
+                <Box key={item.path} sx={styles.navButtonDisabled}>
+                  <Icon sx={styles.navIcon} />
+                  <Typography variant="body2" sx={styles.navLabel}>
+                    {item.label}
+                  </Typography>
+                </Box>
+              );
+            }
 
             return (
               <ButtonBase
@@ -45,24 +62,35 @@ export default function SidebarNav() {
       <Box sx={styles.bottomSection}>
         <Divider sx={styles.divider} />
 
-        <Box sx={styles.profileRow}>
-          <Avatar
-            src="https://i.pravatar.cc/100?img=12"
-            sx={{ width: 36, height: 36 }}
-          />
+        <ButtonBase
+          sx={styles.profileRow}
+          onClick={() => setDogDialogOpen(true)}
+        >
+          <Avatar src={dogImage} sx={{ width: 44, height: 44 }} />
           <Box sx={styles.profileMeta}>
             <Typography variant="body2" sx={styles.profileName}>
-              Jane Doe
+              Big Dawg
             </Typography>
             <Typography variant="caption" sx={styles.profileLink}>
               View profile
             </Typography>
           </Box>
-        </Box>
+        </ButtonBase>
 
         <Box sx={styles.navList}>
           {secondaryNavItems.map((item) => {
             const Icon = item.icon;
+
+            if (item.disabled) {
+              return (
+                <Box key={item.path} sx={styles.navButtonDisabled}>
+                  <Icon sx={styles.navIcon} />
+                  <Typography variant="body2" sx={styles.navLabel}>
+                    {item.label}
+                  </Typography>
+                </Box>
+              );
+            }
 
             return (
               <ButtonBase
@@ -80,6 +108,11 @@ export default function SidebarNav() {
           })}
         </Box>
       </Box>
+
+      <DogProfileDialog
+        open={dogDialogOpen}
+        onClose={() => setDogDialogOpen(false)}
+      />
     </Box>
   );
 }

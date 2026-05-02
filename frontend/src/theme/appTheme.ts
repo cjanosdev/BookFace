@@ -1,5 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
+// material ui app theme
 export const appTheme = createTheme({
   palette: {
     primary: {
